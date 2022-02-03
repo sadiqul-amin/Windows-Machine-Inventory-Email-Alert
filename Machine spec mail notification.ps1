@@ -10,16 +10,16 @@ function systeminfo {
     $machine = "."
 	
     $compInfo = Get-WmiObject Win32_computersystem -comp $machine
-  	$output += "SYSTEM INFORMATION `r`n"
+    $output += "SYSTEM INFORMATION `r`n"
     $output += "===========================================================================`r`n"
     $output += "Hostname :" + $compinfo.name + "`r`n"
-	$output += "Model :" + $compinfo.model + "`r`n"
+    $output += "Model :" + $compinfo.model + "`r`n"
 
     $biosInfo = Get-WmiObject Win32_bios -comp $machine
-	$output += "Manufacturer :" + $biosinfo.Manufacturer + "`r`n"
-	$output += "Serial No. :" + $biosinfo.SerialNumber+ "`r`n"
-	$output += "BIOS Ver. :" + $biosinfo.Name + "`r`n"
-	$output += "SM BIOS Ver:" + $biosinfo.SMBIOSBIOSVersion + "`r`n"
+    $output += "Manufacturer :" + $biosinfo.Manufacturer + "`r`n"
+    $output += "Serial No. :" + $biosinfo.SerialNumber+ "`r`n"
+    $output += "BIOS Ver. :" + $biosinfo.Name + "`r`n"
+    $output += "SM BIOS Ver:" + $biosinfo.SMBIOSBIOSVersion + "`r`n"
     $output += "`r`n"
 
     $osinfo += Get-WmiObject Win32_OperatingSystem -comp $machine
@@ -54,15 +54,15 @@ function systeminfo {
     $output += "`r`n"
 
     $networkinfo = Get-WmiObject Win32_NetworkAdapterConfiguration -Filter 'ipenabled = "true"'
-
-	$output += "Network Adaptar Make / Model :" + $networkinfo.Description + "`r`n"
+    
+    $output += "Network Adaptar Make / Model :" + $networkinfo.Description + "`r`n"
     $output += "IPv4 and IPv6:" + $networkinfo.IPAddress + "`r`n"
     $output += "Default Gateway :" + $networkinfo.DefaultIPGateway + "`r`n"
     $output += "Domain :" + $compinfo.domain + "`r`n"
-	$networkmac = get-wmiobject -class "Win32_NetworkAdapterConfiguration" | Where{$_.IpEnabled -Match "True"}
-	$output += "Ethernet Mac address:" + $networkmac.MacAddress + "`r`n"
-	$output += "`r`n"
-	return $output
+    $networkmac = get-wmiobject -class "Win32_NetworkAdapterConfiguration" | Where{$_.IpEnabled -Match "True"}
+    $output += "Ethernet Mac address:" + $networkmac.MacAddress + "`r`n"
+    $output += "`r`n"
+    return $output
 }
 
 <#
